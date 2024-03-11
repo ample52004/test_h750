@@ -1,0 +1,9 @@
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\src\idle.c
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rthw.h
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h
+.\objects\idle.o: .\RTE\RTOS\rtconfig.h
+.\objects\idle.o: .\RTE\_uart-dma\RTE_Components.h
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h
+.\objects\idle.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\idle.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h

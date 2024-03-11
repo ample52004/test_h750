@@ -1,0 +1,9 @@
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\src\components.c
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rthw.h
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h
+.\objects\components.o: .\RTE\RTOS\rtconfig.h
+.\objects\components.o: .\RTE\_uart-dma\RTE_Components.h
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h
+.\objects\components.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\components.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h

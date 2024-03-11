@@ -1,0 +1,9 @@
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\src\ipc.c
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h
+.\objects\ipc.o: .\RTE\RTOS\rtconfig.h
+.\objects\ipc.o: .\RTE\_uart-dma\RTE_Components.h
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h
+.\objects\ipc.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h
+.\objects\ipc.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rthw.h

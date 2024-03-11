@@ -1,0 +1,9 @@
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\src\kservice.c
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h
+.\objects\kservice.o: .\RTE\RTOS\rtconfig.h
+.\objects\kservice.o: .\RTE\_uart-dma\RTE_Components.h
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h
+.\objects\kservice.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h
+.\objects\kservice.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rthw.h

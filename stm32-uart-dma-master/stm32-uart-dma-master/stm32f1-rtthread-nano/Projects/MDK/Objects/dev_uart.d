@@ -1,0 +1,14 @@
+.\objects\dev_uart.o: ..\..\Source\App\dev_uart.c
+.\objects\dev_uart.o: D:\Keil\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\dev_uart.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\dev_uart.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\dev_uart.o: ..\..\Source\Bsp\bsp_uart.h
+.\objects\dev_uart.o: ..\..\Source\Components\fifo.h
+.\objects\dev_uart.o: ..\..\Source\App\dev_uart.h
+.\objects\dev_uart.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtthread.h
+.\objects\dev_uart.o: .\RTE\RTOS\rtconfig.h
+.\objects\dev_uart.o: .\RTE\_uart-dma\RTE_Components.h
+.\objects\dev_uart.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdebug.h
+.\objects\dev_uart.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtdef.h
+.\objects\dev_uart.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+.\objects\dev_uart.o: C:\Users\11050\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.5\include\rtservice.h

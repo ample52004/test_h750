@@ -140,7 +140,7 @@ void DebugMon_Handler(void)
 void DMA1_Stream0_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
-		rt_kprintf("Stream0_Start\n");
+		//rt_kprintf("Stream0_Start\n");
     if (LL_DMA_IsEnabledIT_HT(DMA1, LL_DMA_STREAM_0) && LL_DMA_IsActiveFlag_HT0(DMA1)) 
     {
         uart_dmarx_half_done_isr(DEV_UART1);
@@ -152,7 +152,7 @@ void DMA1_Stream0_IRQHandler(void)
           uart_dmarx_done_isr(DEV_UART1);
           LL_DMA_ClearFlag_TC0(DMA1);          
     }
-		rt_kprintf("Stream0_Done\n");
+		//rt_kprintf("Stream0_Done\n");
   /* USER CODE END DMA1_Stream0_IRQn 0 */
 
   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
@@ -169,10 +169,10 @@ void DMA1_Stream1_IRQHandler(void)
 		
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_1) && LL_DMA_IsActiveFlag_TC1(DMA1)) 
     {
-				rt_kprintf("Stream1_Start\n");
+				//rt_kprintf("Stream1_Start\n");
         uart_dmatx_done_isr(DEV_UART1);
         LL_DMA_ClearFlag_TC1(DMA1);
-				rt_kprintf("Stream1_Done\n");			
+				//rt_kprintf("Stream1_Done\n");			
     }
 
   /* USER CODE END DMA1_Stream1_IRQn 0 */
@@ -196,7 +196,7 @@ void USART1_IRQHandler(void)
         uart_dmarx_idle_isr(DEV_UART1);
         LL_USART_ClearFlag_IDLE(USART1);
 				LL_DMA_EnableStream(DMA1,LL_DMA_STREAM_0);
-				rt_kprintf("USART1_DONE\n");
+				//rt_kprintf("USART1_DONE\n");
     }
 		//rt_interrupt_leave();
   /* USER CODE END USART1_IRQn 0 */

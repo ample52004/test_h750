@@ -144,7 +144,7 @@ void uart_dmarx_done_isr(uint8_t uart_id)
 				   (const uint8_t *)&(s_uart_dev[uart_id].dmarx_buf[s_uart_dev[uart_id].last_dmarx_size]), recv_size);
 
 	s_uart_dev[uart_id].last_dmarx_size = 0;
-	rt_kprintf("uart_dmarx_done_isr done \n");
+	//rt_kprintf("uart_dmarx_done_isr done \n");
 }
 
 /**
@@ -154,7 +154,7 @@ void uart_dmarx_done_isr(uint8_t uart_id)
  */
 void uart_dmarx_half_done_isr(uint8_t uart_id)
 {
-	rt_kprintf("uart_dmarx_done_is start \n");
+	//rt_kprintf("uart_dmarx_done_is start \n");
 	uint16_t recv_total_size;
 	uint16_t recv_size;
 	
@@ -181,14 +181,14 @@ void uart_dmarx_half_done_isr(uint8_t uart_id)
  */
 void uart_dmarx_idle_isr(uint8_t uart_id)
 {
-	rt_kprintf("receive\n");
+	//rt_kprintf("receive\n");
 	uint16_t recv_total_size;
 	uint16_t recv_size;
 
 	if(uart_id == 0)
 	{
 	  	recv_total_size = s_uart_dev[uart_id].dmarx_buf_size - bsp_usart1_get_dmarx_buf_remain_size();
-			rt_kprintf("recv_total_size = %d\n",recv_total_size);
+			//rt_kprintf("recv_total_size = %d\n",recv_total_size);
 	}
 	else if (uart_id == 1)
 	{
@@ -196,7 +196,7 @@ void uart_dmarx_idle_isr(uint8_t uart_id)
 	}
 	recv_size = recv_total_size - s_uart_dev[uart_id].last_dmarx_size;
 	//	uart_write(DEV_UART1, buf_test, 8);
-	rt_kprintf("recv_size = %d\n",recv_size);
+	//rt_kprintf("recv_size = %d\n",recv_size);
 	s_UartTxRxCount[uart_id*2+1] += recv_size;
 	fifo_write(&s_uart_dev[uart_id].rx_fifo, 
 				   (const uint8_t *)&(s_uart_dev[uart_id].dmarx_buf[s_uart_dev[uart_id].last_dmarx_size]), recv_size);

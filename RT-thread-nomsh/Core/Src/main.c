@@ -74,19 +74,32 @@ int main(void)
 	uint8_t buf_test[8]={65,66,67,68};
 	rt_kprintf("test start \n");
 	uart_write(DEV_UART1, buf_test, 8);
+//	for(;;)
+//	{
+//		/* 串口数据回环测试 */
+//		//rt_kprintf("串口数据回环测试");
+//		size = uart_read(DEV_UART1, buf, 256);
+//		rt_kprintf("main SIZE = %d\n",size);
+//		uart_write(DEV_UART1, buf, size);
+//		
+//		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
+//		uart_poll_dma_tx(DEV_UART1); 
+//		LL_mDelay(1000);
+//	}
 	for(;;)
 	{
-		/* 串口数据回环测试 */
-		//rt_kprintf("串口数据回环测试");
-		size = uart_read(DEV_UART1, buf, 256);
-		rt_kprintf("main SIZE = %d\n",size);
-		uart_write(DEV_UART1, buf, size);
-		
-		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
-		uart_poll_dma_tx(DEV_UART1); 
-		LL_mDelay(1000);
+        s_count++;
+	  	
+        if ((s_count%50000) == 0)
+	  	{
+            /* ???????? */
+            size = uart_read(DEV_UART1, buf, 256);
+            uart_write(DEV_UART1, buf, size);
+            
+            /* ?fifo?????dma buf,???dma?? */
+            uart_poll_dma_tx(DEV_UART1); 
+        }
 	}
-
 }
 
 /**

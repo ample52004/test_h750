@@ -53,16 +53,16 @@ uint32_t s_UartTxRxCount[4] = {0};
 /* fifo上锁函数 */
 static void fifo_lock(void)
 {
-//    __disable_irq();
-//	level0 = rt_hw_interrupt_disable();
+    __disable_irq();
+	//level0 = rt_hw_interrupt_disable();
 	;//rt_enter_critical();
 }
 
 /* fifo解锁函数 */
 static void fifo_unlock(void)
 {
-//    __enable_irq();
-//	rt_hw_interrupt_enable(level0);
+    __enable_irq();
+	//rt_hw_interrupt_enable(level0);
 	;//rt_exit_critical();
 }
 
@@ -116,6 +116,7 @@ void uart_device_init(uint8_t uart_id)
  */
 uint16_t uart_write(uint8_t uart_id, const uint8_t *buf, uint16_t size)
 {
+	//rt_kprintf("start write\n");
 	return fifo_write(&s_uart_dev[uart_id].tx_fifo, buf, size);
 }
 
@@ -126,6 +127,7 @@ uint16_t uart_write(uint8_t uart_id, const uint8_t *buf, uint16_t size)
  */
 uint16_t uart_read(uint8_t uart_id, uint8_t *buf, uint16_t size)
 {
+	rt_kprintf("start write\n");
 	return fifo_read(&s_uart_dev[uart_id].rx_fifo, buf, size);
 }
 

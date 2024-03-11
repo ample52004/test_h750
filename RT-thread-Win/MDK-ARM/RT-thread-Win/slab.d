@@ -1,0 +1,10 @@
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/src/slab.c
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rthw.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
+rt-thread-win\slab.o: ../RT-Thread/rtconfig.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
+rt-thread-win\slab.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
+rt-thread-win\slab.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h

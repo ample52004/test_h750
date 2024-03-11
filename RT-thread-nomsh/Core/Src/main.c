@@ -79,11 +79,12 @@ int main(void)
 		/* 串口数据回环测试 */
 		//rt_kprintf("串口数据回环测试");
 		size = uart_read(DEV_UART1, buf, 256);
+		rt_kprintf("main SIZE = %d\n",size);
 		uart_write(DEV_UART1, buf, size);
 		
 		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
 		uart_poll_dma_tx(DEV_UART1); 
-		 rt_thread_mdelay(1);
+		LL_mDelay(1000);
 	}
 
 }

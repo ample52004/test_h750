@@ -34,7 +34,7 @@ void usart1_dma_init(uint8_t *mem_addr, uint32_t mem_size)
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     
 	bsp_usart1_dmarx_config(mem_addr, mem_size);
-	
+	bsp_usart1_dmatx_config(mem_addr, mem_size);
   /* USART1 interrupt Init */
   NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),2, 0));
   NVIC_EnableIRQ(USART1_IRQn);

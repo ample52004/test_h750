@@ -86,12 +86,12 @@ void uart_device_init(uint8_t uart_id)
 		s_uart_dev[uart_id].dmarx_buf_size = sizeof(s_uart1_dmarx_buf);
 		s_uart_dev[uart_id].dmatx_buf = &s_uart1_dmatx_buf[0];
 		s_uart_dev[uart_id].dmatx_buf_size = sizeof(s_uart1_dmatx_buf);
-		bsp_usart1_dmarx_config(s_uart_dev[uart_id].dmarx_buf, 
+		usart1_dma_init(s_uart_dev[uart_id].dmarx_buf, 
 							   sizeof(s_uart1_dmarx_buf));/* 只需配置接收模式DMA，发送模式需发送数据时才配置 */
 		s_uart_dev[uart_id].status  = 0;
 	}
 	else if (uart_id == 1)
-	 
+	  
 		/* 配置串口2收发fifo */
 		fifo_register(&s_uart_dev[uart_id].tx_fifo, &s_uart2_tx_buf[0], 
                       sizeof(s_uart2_tx_buf), fifo_lock, fifo_unlock);
@@ -144,7 +144,7 @@ void uart_dmarx_done_isr(uint8_t uart_id)
 				   (const uint8_t *)&(s_uart_dev[uart_id].dmarx_buf[s_uart_dev[uart_id].last_dmarx_size]), recv_size);
 
 	s_uart_dev[uart_id].last_dmarx_size = 0;
-
+	rt_kprintf("uart_dmarx_done_isr done \n");
 }
 
 /**
@@ -154,6 +154,7 @@ void uart_dmarx_done_isr(uint8_t uart_id)
  */
 void uart_dmarx_half_done_isr(uint8_t uart_id)
 {
+	rt_kprintf("uart_dmarx_done_is start \n");
 	uint16_t recv_total_size;
 	uint16_t recv_size;
 	
@@ -180,19 +181,22 @@ void uart_dmarx_half_done_isr(uint8_t uart_id)
  */
 void uart_dmarx_idle_isr(uint8_t uart_id)
 {
-	rt_kprintf("receive");
+	rt_kprintf("receive\n");
 	uint16_t recv_total_size;
 	uint16_t recv_size;
 
 	if(uart_id == 0)
 	{
 	  	recv_total_size = s_uart_dev[uart_id].dmarx_buf_size - bsp_usart1_get_dmarx_buf_remain_size();
+			rt_kprintf("recv_total_size = %d\n",recv_total_size);
 	}
 	else if (uart_id == 1)
 	{
 		//recv_total_size = s_uart_dev[uart_id].dmarx_buf_size - bsp_uart2_get_dmarx_buf_remain_size();
 	}
 	recv_size = recv_total_size - s_uart_dev[uart_id].last_dmarx_size;
+	//	uart_write(DEV_UART1, buf_test, 8);
+	rt_kprintf("recv_size = %d\n",recv_size);
 	s_UartTxRxCount[uart_id*2+1] += recv_size;
 	fifo_write(&s_uart_dev[uart_id].rx_fifo, 
 				   (const uint8_t *)&(s_uart_dev[uart_id].dmarx_buf[s_uart_dev[uart_id].last_dmarx_size]), recv_size);

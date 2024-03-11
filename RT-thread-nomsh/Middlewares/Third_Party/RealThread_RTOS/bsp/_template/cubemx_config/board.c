@@ -64,9 +64,9 @@ void rt_hw_board_init(void)
 		/* Configure the system clock */
 		SystemClock_Config();
 
-
-		MX_GPIO_Init();	  
 	  uart_device_init(DEV_UART1);
+		MX_GPIO_Init();	  
+
 //		MX_DMA_Init();
 //		MX_USART1_UART_Init();
 		MX_SPI5_Init();
@@ -92,25 +92,25 @@ INIT_BOARD_EXPORT(uart_init);
 
 void rt_hw_console_output(const char *str)
 {
-//	  rt_size_t i = 0, size = 0;
-//    char a = '\r';
-//    // ??USART?????
-//    //LL_USART_EnableIT_TXE(USART1); // ??????????,????????????
-//    size = rt_strlen(str);
-//    for (i = 0; i < size; i++)
-//    {
-//        while(!LL_USART_IsActiveFlag_TXE(USART1))
-//        {
-//        }
-//        if (*(str + i) == '\n')
-//        {
-//            LL_USART_TransmitData8(USART1, a);
-//            while(!LL_USART_IsActiveFlag_TXE(USART1))
-//            {
-//            }
-//        }
-//        LL_USART_TransmitData8(USART1, *(str + i));
-//    }
+	  rt_size_t i = 0, size = 0;
+    char a = '\r';
+    // ??USART?????
+    //LL_USART_EnableIT_TXE(USART1); // ??????????,????????????
+    size = rt_strlen(str);
+    for (i = 0; i < size; i++)
+    {
+        while(!LL_USART_IsActiveFlag_TXE(USART1))
+        {
+        }
+        if (*(str + i) == '\n')
+        {
+            LL_USART_TransmitData8(USART1, a);
+            while(!LL_USART_IsActiveFlag_TXE(USART1))
+            {
+            }
+        }
+        LL_USART_TransmitData8(USART1, *(str + i));
+    }
 }
 #endif
 

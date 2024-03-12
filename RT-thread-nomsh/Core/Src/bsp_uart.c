@@ -7,7 +7,7 @@
 #include "dma.h"
 #include "usart.h"
 
-void usart1_dma_init(uint8_t *mem_addr, uint32_t mem_size)
+void usart1_dma_init(void)
 {
   MX_DMA_Init();
 
@@ -33,8 +33,7 @@ void usart1_dma_init(uint8_t *mem_addr, uint32_t mem_size)
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
     
-	bsp_usart1_dmarx_config(mem_addr, mem_size);
-	bsp_usart1_dmatx_config(mem_addr, mem_size);
+
   /* USART1 interrupt Init */
   NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),2, 0));
   NVIC_EnableIRQ(USART1_IRQn);

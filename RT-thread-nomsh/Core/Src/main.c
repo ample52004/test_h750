@@ -60,6 +60,37 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+static void led_thread_entry(void* parameter)
+{
+    for (;;)
+    {
+		rt_kprintf("led on \n");
+		rt_thread_mdelay(500);
+    rt_kprintf("led off \n");
+		rt_thread_mdelay(500);
+    }
+}
+
+void led_thread_init(void)
+{
+  	static rt_uint8_t s_led_stack[256];
+  	static struct rt_thread led_thread;
+    rt_err_t result;
+
+    result = rt_thread_init(&led_thread,
+                            "led",
+                            led_thread_entry,
+                            RT_NULL,
+                            (rt_uint8_t*)&s_led_stack[0],
+                            sizeof(s_led_stack),
+                            7,
+                            5);
+    if (result == RT_EOK)
+    {
+        rt_thread_startup(&led_thread);
+    }
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -69,32 +100,25 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	led_thread_init();
   uint16_t size = 0;
-	static uint8_t buf[256];
-	int i_q ;
-	for(int i=0;i<256;i++){
-		i_q = i%26;
-		buf[i] = 64+i_q;
-	}
-	uint8_t buf_test[8]={65,66,67,68};
+	uint8_t buf[256];
+
+
 	rt_kprintf("test start \n");
-	uart_write(DEV_UART1, buf_test, 8);
-	uart_write(DEV_UART1, buf, 256);
-	uart_poll_dma_tx(DEV_UART1); 
-	rt_kprintf("test done \n");
-	for(;;)
+	while(1)
 	{
 		/* 串口数据回环测试 */
-		rt_kprintf("串口数据回环测试 \n");
+		//rt_kprintf("串口数据回环测试 \n");
 		size = uart_read(DEV_UART1, buf, 256);
-		rt_kprintf("main SIZE = %d\n",size);
+		//rt_kprintf("main SIZE = %d\n",size);
 		uart_write(DEV_UART1, buf, size);
 		
 		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
 		uart_poll_dma_tx(DEV_UART1); 
-		LL_mDelay(1000);
+		LL_mDelay(10);
+		//rt_thread_mdelay(100);
 	}
-
 }
 
 /**

@@ -18,6 +18,7 @@
 #include "usart.h"
 #include "gpio.h"
 #include "dev_uart.h"
+#include "bsp_uart.h"
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
 /*
  * Please modify RT_HEAP_SIZE if you enable RT_USING_HEAP
@@ -64,8 +65,10 @@ void rt_hw_board_init(void)
 		/* Configure the system clock */
 		SystemClock_Config();
 
-	  uart_device_init(DEV_UART1);
-		MX_GPIO_Init();	  
+	  
+		MX_GPIO_Init();
+		usart1_dma_init();
+		uart_device_init(DEV_UART1);
 
 //		MX_DMA_Init();
 //		MX_USART1_UART_Init();
@@ -97,20 +100,21 @@ void rt_hw_console_output(const char *str)
     // ??USART?????
     //LL_USART_EnableIT_TXE(USART1); // ??????????,????????????
     size = rt_strlen(str);
-    for (i = 0; i < size; i++)
-    {
-        while(!LL_USART_IsActiveFlag_TXE(USART1))
-        {
-        }
-        if (*(str + i) == '\n')
-        {
-            LL_USART_TransmitData8(USART1, a);
-            while(!LL_USART_IsActiveFlag_TXE(USART1))
-            {
-            }
-        }
-        LL_USART_TransmitData8(USART1, *(str + i));
-    }
+			uart_write(DEV_UART1, str, size);
+//    for (i = 0; i < size; i++)
+//    {
+//        while(!LL_USART_IsActiveFlag_TXE(USART1))
+//        {
+//        }
+//        if (*(str + i) == '\n')
+//        {
+//            LL_USART_TransmitData8(USART1, a);
+//            while(!LL_USART_IsActiveFlag_TXE(USART1))
+//            {
+//            }
+//        }
+//        LL_USART_TransmitData8(USART1, *(str + i));
+//    }
 }
 #endif
 

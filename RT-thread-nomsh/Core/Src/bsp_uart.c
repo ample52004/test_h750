@@ -7,7 +7,7 @@
 #include "dma.h"
 #include "usart.h"
 
-void usart1_dma_init(void)
+void usart1_dma_init(uint8_t *mem_addr, uint32_t mem_size)
 {
   MX_DMA_Init();
 
@@ -27,12 +27,12 @@ void usart1_dma_init(void)
   */
   GPIO_InitStruct.Pin = LL_GPIO_PIN_10|LL_GPIO_PIN_9;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    
+  bsp_usart1_dmarx_config(mem_addr, mem_size);
 
   /* USART1 interrupt Init */
   NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),2, 0));
@@ -50,16 +50,17 @@ void usart1_dma_init(void)
   USART_InitStruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
   USART_InitStruct.OverSampling = LL_USART_OVERSAMPLING_16;
   LL_USART_Init(USART1, &USART_InitStruct);
+	LL_USART_DisableFIFO(USART1);
   LL_USART_SetTXFIFOThreshold(USART1, LL_USART_FIFOTHRESHOLD_1_8);
   LL_USART_SetRXFIFOThreshold(USART1, LL_USART_FIFOTHRESHOLD_1_8);
-  LL_USART_DisableFIFO(USART1);
+
   LL_USART_ConfigAsyncMode(USART1);
 	
-	LL_USART_EnableIT_IDLE(USART1);                                       // 串口空闲中断
+                                    // 串口空闲中断
   /* USER CODE BEGIN WKUPType USART1 */
 	LL_USART_EnableDMAReq_RX(USART1);                                     // 使能DMA接收
 	LL_USART_EnableDMAReq_TX(USART1);                                     // 使能DMA发送
-	
+	LL_USART_EnableIT_IDLE(USART1);   
 
   /* USER CODE END WKUPType USART1 */
 
@@ -92,6 +93,7 @@ void bsp_usart1_dmatx_config(uint8_t *mem_addr, uint32_t mem_size)
         
     LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_1);
     LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_1);
+
 }
 
 void bsp_usart1_dmarx_config(uint8_t *mem_addr, uint32_t mem_size)
@@ -113,6 +115,7 @@ void bsp_usart1_dmarx_config(uint8_t *mem_addr, uint32_t mem_size)
     LL_DMA_EnableIT_HT(DMA1, LL_DMA_STREAM_0);
     LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_0);
     LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_0);
+
 }
 
 uint16_t bsp_usart1_get_dmarx_buf_remain_size(void)

@@ -102,22 +102,22 @@ int main(void)
   /* USER CODE BEGIN 1 */
 	led_thread_init();
   uint16_t size = 0;
-	uint8_t buf[256];
+	uint8_t buf[2048];
+	uint8_t buf_test[20]="test start \n";
 
-
-	rt_kprintf("test start \n");
+	uart_write(DEV_UART1, buf_test, 20);
 	while(1)
 	{
 		/* 串口数据回环测试 */
-		//rt_kprintf("串口数据回环测试 \n");
 		size = uart_read(DEV_UART1, buf, 256);
-		//rt_kprintf("main SIZE = %d\n",size);
+		rt_kprintf("buf size = %d",sizeof(buf));
 		uart_write(DEV_UART1, buf, size);
 		
 		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
 		uart_poll_dma_tx(DEV_UART1); 
-		LL_mDelay(10);
-		//rt_thread_mdelay(100);
+		rt_kprintf("poll_Down");
+		//LL_mDelay(10);
+		rt_thread_mdelay(1);
 	}
 }
 

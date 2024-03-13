@@ -25,7 +25,7 @@ typedef struct
 #define UART1_TX_BUF_SIZE           2048
 #define UART1_RX_BUF_SIZE           2048
 #define	UART1_DMA_RX_BUF_SIZE		128
-#define	UART1_DMA_TX_BUF_SIZE		64
+#define	UART1_DMA_TX_BUF_SIZE		128
 
 #define UART2_TX_BUF_SIZE           1024
 #define UART2_RX_BUF_SIZE           124
@@ -86,7 +86,7 @@ void uart_device_init(uint8_t uart_id)
 		s_uart_dev[uart_id].dmarx_buf_size = sizeof(s_uart1_dmarx_buf);
 		s_uart_dev[uart_id].dmatx_buf = &s_uart1_dmatx_buf[0];
 		s_uart_dev[uart_id].dmatx_buf_size = sizeof(s_uart1_dmatx_buf);
-		bsp_usart1_dmarx_config(s_uart_dev[uart_id].dmarx_buf, 
+		usart1_dma_init(s_uart_dev[uart_id].dmarx_buf, 
 							   sizeof(s_uart1_dmarx_buf));/* 只需配置接收模式DMA，发送模式需发送数据时才配置 */
 		s_uart_dev[uart_id].status  = 0;
 	}
@@ -127,7 +127,7 @@ uint16_t uart_write(uint8_t uart_id, const uint8_t *buf, uint16_t size)
  */
 uint16_t uart_read(uint8_t uart_id, uint8_t *buf, uint16_t size)
 {
-	//rt_kprintf("start write\n");
+	rt_kprintf("1\n");
 	return fifo_read(&s_uart_dev[uart_id].rx_fifo, buf, size);
 }
 

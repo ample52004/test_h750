@@ -4,7 +4,7 @@
 #include <string.h>
 #include "fifo.h"
 #include <stddef.h>
-
+#include "rtthread.h"
 /**
   * @brief  注册一个fifo
   * @param  pfifo: fifo结构体指针
@@ -123,6 +123,7 @@ uint32_t fifo_read(_fifo_t *pfifo, uint8_t *pbuf, uint32_t size)
 	}
     if (pfifo->unlock != NULL)
         pfifo->unlock();
+	rt_kprintf("size = %d \n",size);
 	return size;
 }
  

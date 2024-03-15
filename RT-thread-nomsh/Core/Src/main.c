@@ -37,7 +37,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+SUASRT usart1 = {0};                                                      // 串口2数据
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -111,10 +111,11 @@ int main(void)
 		/* 串口数据回环测试 */
 		size = uart_read(DEV_UART1, buf, 256);
 		rt_kprintf("buf size = %d",sizeof(buf));
-		uart_write(DEV_UART1, buf, size);
-		
+		//uart_write(DEV_UART1, buf, size);
+    
+		send_dma(buf,size);
 		/* 将fifo数据拷贝到dma buf，并启动dma传输 */
-		uart_poll_dma_tx(DEV_UART1); 
+		//uart_poll_dma_tx(DEV_UART1); 
 		rt_kprintf("poll_Down");
 		//LL_mDelay(10);
 		rt_thread_mdelay(1);

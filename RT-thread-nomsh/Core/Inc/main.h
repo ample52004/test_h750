@@ -87,7 +87,16 @@ void Error_Handler(void);
 #endif
 
 /* USER CODE BEGIN Private defines */
-
+#define    USART_BUF_LEN    2048                                          // 定义缓存2048字节
+// 串口设备数据结构
+typedef struct
+{
+	unsigned char rxbuf[USART_BUF_LEN];
+	unsigned char txbuf[USART_BUF_LEN];
+	unsigned short rxlen;
+	unsigned short txlen;
+}SUASRT;
+extern SUASRT usart1;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

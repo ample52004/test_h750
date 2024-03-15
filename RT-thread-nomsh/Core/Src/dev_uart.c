@@ -247,3 +247,9 @@ void uart_poll_dma_tx(uint8_t uart_id)
 		}
 	}
 }
+void send_dma(unsigned char *buf, unsigned short len)
+{
+	usart1.txlen = len;
+	rt_memcpy(usart1.txbuf, buf, usart1.txlen);
+	bsp_usart1_dmatx_config(usart1.txbuf,usart1.txlen);
+}

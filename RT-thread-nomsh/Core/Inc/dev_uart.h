@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
+#include "main.h"
 #define DEV_UART1	0
 #define DEV_UART2	1
 
@@ -16,5 +16,5 @@ extern void uart_dmarx_half_done_isr(uint8_t uart_id);
 extern void uart_dmarx_idle_isr(uint8_t uart_id);
 extern void uart_dmatx_done_isr(uint8_t uart_id);
 extern void uart_poll_dma_tx(uint8_t uart_id);
-
+extern void send_dma(unsigned char *buf, unsigned short len);
 #endif 

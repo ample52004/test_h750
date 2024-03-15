@@ -150,7 +150,7 @@ void DMA1_Stream0_IRQHandler(void)
 
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_0) && LL_DMA_IsActiveFlag_TC0(DMA1)) 
     {
-          uart_dmarx_done_isr(DEV_UART1);
+          //uart_dmarx_done_isr(DEV_UART1);
           LL_DMA_ClearFlag_TC0(DMA1);          
     }
 		
@@ -171,7 +171,7 @@ void DMA1_Stream1_IRQHandler(void)
 		rt_interrupt_enter();
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_1) && LL_DMA_IsActiveFlag_TC1(DMA1)) 
     {
-        uart_dmatx_done_isr(DEV_UART1);
+        //uart_dmatx_done_isr(DEV_UART1);
         LL_DMA_ClearFlag_TC1(DMA1);		
     }
 		rt_interrupt_leave();
@@ -193,8 +193,12 @@ void USART1_IRQHandler(void)
     {
 			  LL_DMA_DisableStream(DMA1,LL_DMA_STREAM_0);
 			
-        uart_dmarx_idle_isr(DEV_UART1);
+        //uart_dmarx_idle_isr(DEV_UART1);
         LL_USART_ClearFlag_IDLE(USART1);
+        usart1.rxlen = USART_BUF_LEN - LL_DMA_GetDataLength(DMA1, LL_DMA_STREAM_0);	           // 获取接收数据长度
+        //memcpy(Rx_Buf, usart3.rxbuf, usart3.rxlen);
+        SCB_InvalidateDCache_by_Addr(usart1.rxbuf, usart1.rxlen);
+        bsp_usart1_dmatx_config(usart1.rxbuf, usart1.rxlen);
 				LL_DMA_EnableStream(DMA1,LL_DMA_STREAM_0);
 		rt_kprintf("USART1_DONE\n");
     }

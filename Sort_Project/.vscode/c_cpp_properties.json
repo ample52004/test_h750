@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/Users/ample/xpack-arm-none-eabi-gcc-12.2.1-1.2/lib/gcc/arm-none-eabi/12.2.1/include"
+            ],
+            "defines": [               
+            "USE_HAL_DRIVER",
+            "STM32F1xx",
+            "__IO"
+        ],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/Users/ample/xpack-arm-none-eabi-gcc-12.2.1-1.2/bin/arm-none-eabi-gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "macos-gcc-arm64"
+        }
+    ],
+    "version": 4
+}

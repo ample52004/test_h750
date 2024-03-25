@@ -1,0 +1,6 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:69:5:msh_help	24	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:93:5:cmd_ps	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:109:5:cmd_free	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:37:11:msh_is_used	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:373:5:msh_exec	72	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/msh.c:568:6:msh_auto_complete	48	static

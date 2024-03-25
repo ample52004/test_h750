@@ -1,0 +1,10 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:821:5:finsh_system_init	3
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:79:5:finsh_set_prompt	4
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:105:13:finsh_get_prompt	4
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:507:6:finsh_thread_entry	31
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:147:13:finsh_get_prompt_mode	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:162:6:finsh_set_prompt_mode	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:269:6:finsh_set_echo	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:282:13:finsh_get_echo	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:770:6:finsh_system_function_init	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/shell.c:776:6:finsh_system_var_init	1

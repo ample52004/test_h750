@@ -1,0 +1,4 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/idle.c:141:6:rt_thread_idle_excute	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/idle.c:179:13:rt_thread_idle_entry	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/idle.c:210:6:rt_thread_idle_init	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/idle.c:232:13:rt_thread_idle_gethandler	1

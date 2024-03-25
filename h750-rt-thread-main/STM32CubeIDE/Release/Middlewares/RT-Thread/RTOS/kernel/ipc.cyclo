@@ -1,0 +1,9 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:163:20:rt_ipc_list_resume_all.isra	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:205:10:rt_sem_init	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:237:10:rt_sem_detach	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:265:10:rt_sem_create	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:298:10:rt_sem_delete	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:326:10:rt_sem_take	8
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:420:10:rt_sem_trytake	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:433:10:rt_sem_release	4
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/ipc.c:492:10:rt_sem_control	2

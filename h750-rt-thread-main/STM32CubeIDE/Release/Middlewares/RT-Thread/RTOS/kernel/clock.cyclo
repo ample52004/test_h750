@@ -1,0 +1,5 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/clock.c:30:6:rt_system_tick_init	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/clock.c:45:11:rt_tick_get	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/clock.c:54:6:rt_tick_set	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/clock.c:67:6:rt_tick_increase	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/clock.c:101:11:rt_tick_from_millisecond	2

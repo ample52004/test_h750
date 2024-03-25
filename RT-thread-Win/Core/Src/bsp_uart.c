@@ -115,6 +115,58 @@ void bsp_usart1_dmarx_config(uint8_t *mem_addr, uint32_t mem_size)
     LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_0);
 }
 
+uint16_t bsp_uart4_get_dmarx_buf_remain_size(void)
+{
+	return LL_DMA_GetDataLength(DMA1, LL_DMA_STREAM_2);	
+}
+void bsp_uart4_dmatx_config(uint8_t *mem_addr, uint32_t mem_size)
+{
+    LL_DMA_DisableStream(DMA1, LL_DMA_STREAM_3);
+    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_3, LL_DMAMUX1_REQ_USART1_TX);
+    LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_3, LL_DMA_DIRECTION_MEMORY_TO_PERIPH);
+    LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_3, LL_DMA_PRIORITY_LOW);
+    LL_DMA_SetMode(DMA1, LL_DMA_STREAM_3, LL_DMA_MODE_NORMAL);
+    LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_3, LL_DMA_PERIPH_NOINCREMENT);
+    LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_3, LL_DMA_MEMORY_INCREMENT);
+    LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_3, LL_DMA_PDATAALIGN_BYTE);
+    LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_3, LL_DMA_MDATAALIGN_BYTE);
+    LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_3);
+    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_STREAM_3, LL_USART_DMA_GetRegAddr(USART1, LL_USART_DMA_REG_DATA_TRANSMIT));
+    
+    LL_DMA_SetMemoryAddress(DMA1, LL_DMA_STREAM_3, (uint32_t)mem_addr);
+    LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_3, mem_size);
+    
+    LL_DMA_ClearFlag_TC1(DMA1);
+    LL_DMA_ClearFlag_HT1(DMA1);
+    LL_DMA_ClearFlag_TE1(DMA1);
+    LL_DMA_ClearFlag_DME1(DMA1);
+    LL_DMA_ClearFlag_FE1(DMA1);
+        
+    LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_3);
+    LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_3);
+}
+
+void bsp_uart4_dmarx_config(uint8_t *mem_addr, uint32_t mem_size)
+{
+    LL_DMA_DeInit(DMA1, LL_DMA_STREAM_2);
+    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_2, LL_DMAMUX1_REQ_USART1_RX);
+    LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_2, LL_DMA_DIRECTION_PERIPH_TO_MEMORY);
+    LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_2, LL_DMA_PRIORITY_LOW);
+    LL_DMA_SetMode(DMA1, LL_DMA_STREAM_2, LL_DMA_MODE_CIRCULAR);
+    LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_2, LL_DMA_PERIPH_NOINCREMENT);
+    LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_2, LL_DMA_MEMORY_INCREMENT);
+    LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_2, LL_DMA_PDATAALIGN_BYTE);
+    LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_2, LL_DMA_MDATAALIGN_BYTE);
+    LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_2);
+    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_STREAM_2, LL_USART_DMA_GetRegAddr(USART1, LL_USART_DMA_REG_DATA_RECEIVE));
+    LL_DMA_SetMemoryAddress(DMA1, LL_DMA_STREAM_2, (uint32_t)mem_addr);
+    LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_2, mem_size);
+    
+    LL_DMA_EnableIT_HT(DMA1, LL_DMA_STREAM_2);
+    LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_2);
+    LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_2);
+}
+
 uint16_t bsp_usart1_get_dmarx_buf_remain_size(void)
 {
 	return LL_DMA_GetDataLength(DMA1, LL_DMA_STREAM_0);	

@@ -21,13 +21,21 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
 Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
-F:\RT-thread-Win\MDK-ARM\RT-thread-Win.uvprojx
-Project File Date:  03/10/2024
+F:\RT_Thread_Win\h750-rt-thread\RT-thread-Win\MDK-ARM\RT-thread-Win.uvprojx
+Project File Date:  03/15/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil\ARM\ARMCC\Bin'
 Build target 'RT-thread-Win'
-"RT-thread-Win\RT-thread-Win.axf" - 0 Error(s), 0 Warning(s).
+Note: source file '../Core/Src/system_stm32h7xx.c' - object file renamed from 'RT-thread-Win\system_stm32h7xx.o' to 'RT-thread-Win\system_stm32h7xx_1.o'.
+compiling stm32h7xx_it.c...
+../Core/Src/stm32h7xx_it.c(256): warning:  #9-D: nested comment is not allowed
+    /* USER CODE END UART4_IRQn 0 */
+../Core/Src/stm32h7xx_it.c: 1 warning, 0 errors
+linking...
+Program Size: Code=23520 RO-data=1948 RW-data=220 ZI-data=22468  
+FromELF: creating hex file...
+"RT-thread-Win\RT-thread-Win.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -51,7 +59,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

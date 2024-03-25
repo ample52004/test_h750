@@ -1,0 +1,7 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:79:12:uart_init	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:27:15:rt_heap_begin_get	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:32:15:rt_heap_end_get	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:38:6:SysTick_Handler	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:50:6:rt_hw_board_init	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:86:6:rt_hw_console_output	24	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/bsp/_template/cubemx_config/board.c:115:6:rt_hw_console_getchar	8	static

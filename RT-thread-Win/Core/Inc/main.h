@@ -50,7 +50,18 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+#define    USART_BUF_LEN    2048  
+typedef struct
+{
+	unsigned char rxbuf[USART_BUF_LEN];
+	unsigned char txbuf[USART_BUF_LEN];
+	unsigned short rxlen;
+	unsigned short txlen;
+}SUASRT;
+extern SUASRT usart4;//extern unsigned char usart3rxbuf[USART3_BUF];
+extern unsigned char Rx_Buf[USART_BUF_LEN];
+//extern unsigned int reclen;
+extern unsigned char flag;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -67,7 +78,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void SendData(unsigned char *buf, unsigned short len);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

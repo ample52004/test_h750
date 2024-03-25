@@ -61,7 +61,9 @@ static rt_thread_t thread_test_dma = RT_NULL;
 static void PA9_thread_on_entry(void *parameter);
 static void Rtthread_test_dma(void *parameter);
 static rt_uint16_t count=0;
-
+unsigned char Rx_Buf[USART_BUF_LEN] = {0};
+SUASRT usart4 = {0};  
+unsigned char flag = 0;
 //static uint32_t s_count = 0;
 static	uint16_t size = 4;
 static	uint8_t buf[4]={65,66,67,68};
@@ -86,6 +88,8 @@ void SystemClock_Config(void);
 int main(void)
 {
 	//NAND_check();
+//	rt_kprintf("TEST DMA \n");
+//	SendData(buf,4);
 	at24cxx_write_byte(0,buf,size);
 	at24cxx_read_byte(0,buf_read,size);
 	rt_kprintf("eeprom test = %s\n",buf_read);
@@ -117,7 +121,7 @@ int main(void)
                     6,                   /* 线程的优先级 */
                     10);
   if ( PA9_thread_on != RT_NULL){
-      rt_thread_startup(PA9_thread_on);
+      //rt_thread_startup(PA9_thread_on);
     }
     else{
     LL_USART_TransmitData8(USART1, 'e');
@@ -204,6 +208,39 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+static void SendData(unsigned char *buf, unsigned short len)
+{
+    // DMA 发送初始化，DMA1通道1
+    LL_DMA_DisableStream(DMA1, LL_DMA_STREAM_3);
+	LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_3, LL_DMAMUX1_REQ_USART3_TX); // 串口3
+	LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_STREAM_3, LL_DMA_DIRECTION_MEMORY_TO_PERIPH);
+	LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_3, LL_DMA_PRIORITY_LOW);
+	LL_DMA_SetMode(DMA1, LL_DMA_STREAM_3, LL_DMA_MODE_NORMAL);
+	LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_3, LL_DMA_PERIPH_NOINCREMENT);
+	LL_DMA_SetMemoryIncMode(DMA1, LL_DMA_STREAM_3, LL_DMA_MEMORY_INCREMENT);
+	LL_DMA_SetPeriphSize(DMA1, LL_DMA_STREAM_3, LL_DMA_PDATAALIGN_BYTE);
+	LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_3, LL_DMA_MDATAALIGN_BYTE);
+	LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_3);
+	LL_DMA_SetPeriphAddress(DMA1, LL_DMA_STREAM_3, LL_USART_DMA_GetRegAddr(UART4, LL_USART_DMA_REG_DATA_TRANSMIT));
+
+	//配置内存地址
+	usart4.txlen = len;
+	rt_memcpy(usart4.txbuf, buf, usart4.txlen);
+	LL_DMA_SetMemoryAddress(DMA1, LL_DMA_STREAM_1,(uint32_t)usart4.txbuf);
+	LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_1, usart4.txlen);
+
+    // 清除中断标志位
+	LL_DMA_ClearFlag_TC1(DMA1);
+	LL_DMA_ClearFlag_HT1(DMA1);
+	LL_DMA_ClearFlag_TE1(DMA1);
+	LL_DMA_ClearFlag_DME1(DMA1);
+	LL_DMA_ClearFlag_FE1(DMA1);
+
+	// 使能传输完成中断
+	LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_1);
+	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_1);
+
+}
 static void PA9_thread_on_entry(void* parameter)
 {	
     while (1)

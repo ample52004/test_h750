@@ -1,0 +1,8 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:19:6:rt_hw_cpu_icache_enable	0	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:24:6:rt_hw_cpu_icache_disable	0	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:29:11:rt_hw_cpu_icache_status	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:34:6:rt_hw_cpu_icache_ops	0	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:53:6:rt_hw_cpu_dcache_enable	16	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:58:6:rt_hw_cpu_dcache_disable	16	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:63:11:rt_hw_cpu_dcache_status	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/libcpu/arm/cortex-m7/cpu_cache.c:68:6:rt_hw_cpu_dcache_ops	0	static,ignoring_inline_asm

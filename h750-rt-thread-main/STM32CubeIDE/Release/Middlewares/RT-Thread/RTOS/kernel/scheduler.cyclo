@@ -1,0 +1,8 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:123:6:rt_system_scheduler_init	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:157:6:rt_system_scheduler_start	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:194:6:rt_schedule	4
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:275:6:rt_schedule_insert_thread	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:321:6:rt_schedule_remove_thread	2
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:366:6:rt_enter_critical	1
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:386:6:rt_exit_critical	3
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/src/scheduler.c:418:13:rt_critical_level	1

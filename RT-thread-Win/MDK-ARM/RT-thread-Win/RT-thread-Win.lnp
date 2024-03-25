@@ -46,7 +46,7 @@
 "rt-thread-win\stm32h7xx_hal_tim.o"
 "rt-thread-win\stm32h7xx_hal_tim_ex.o"
 "rt-thread-win\stm32h7xx_ll_usart.o"
-"rt-thread-win\system_stm32h7xx.o"
+"rt-thread-win\system_stm32h7xx_1.o"
 "rt-thread-win\context_rvds.o"
 "rt-thread-win\clock.o"
 "rt-thread-win\components.o"

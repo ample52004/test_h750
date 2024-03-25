@@ -85,9 +85,8 @@ void rt_hw_board_init(void)
     SysTick_Config(LL_RCC_GetFMCClockFreq(LL_RCC_FMC_CLKSOURCE)/RT_TICK_PER_SECOND);
 		MX_GPIO_Init();
     MX_DMA_Init();
-		uart_device_init(DEV_UART1);
-//		MX_DMA_Init();
-//		MX_USART1_UART_Init();
+		//uart_device_init(DEV_UART1);
+		MX_USART1_UART_Init();
 		MX_FMC_Init();
     rt_ringbuffer_init(&uart_rxcb, uart_rx_buf, UART_RX_BUF_LEN);
 	/* ????????????? */
@@ -224,11 +223,6 @@ void USART1_IRQHandler(void)                	//??1??????
     /* leave interrupt */
 //    rt_interrupt_leave();    //?????????????,????
 //		rt_interrupt_enter(); 
-		if (LL_USART_IsEnabledIT_IDLE(USART1) && LL_USART_IsActiveFlag_IDLE(USART1)) 
-    {
-        uart_dmarx_idle_isr(DEV_UART1);
-        LL_USART_ClearFlag_IDLE(USART1);   
-    }
 		rt_interrupt_leave(); 
 }
 

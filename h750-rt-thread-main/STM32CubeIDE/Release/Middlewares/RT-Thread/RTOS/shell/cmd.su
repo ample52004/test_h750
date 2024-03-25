@@ -1,0 +1,8 @@
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:43:6:hello	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:52:6:version	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:873:6:list	24	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:90:19:list_get_next	24	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:61:16:object_split.constprop	16	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:732:6:list_timer	104	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:155:6:list_thread	104	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Middlewares/Third_Party/RealThread_RTOS/components/finsh/cmd.c:268:6:list_sem	104	static

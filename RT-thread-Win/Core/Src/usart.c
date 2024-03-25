@@ -63,7 +63,7 @@ void MX_UART4_Init(void)
 
   LL_DMA_SetStreamPriorityLevel(DMA1, LL_DMA_STREAM_2, LL_DMA_PRIORITY_LOW);
 
-  LL_DMA_SetMode(DMA1, LL_DMA_STREAM_2, LL_DMA_MODE_NORMAL);
+  LL_DMA_SetMode(DMA1, LL_DMA_STREAM_2, LL_DMA_MODE_CIRCULAR);
 
   LL_DMA_SetPeriphIncMode(DMA1, LL_DMA_STREAM_2, LL_DMA_PERIPH_NOINCREMENT);
 
@@ -73,13 +73,17 @@ void MX_UART4_Init(void)
 
   LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_2, LL_DMA_MDATAALIGN_BYTE);
 
-  LL_DMA_EnableFifoMode(DMA1, LL_DMA_STREAM_2);
+  LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_2);
 
   LL_DMA_SetFIFOThreshold(DMA1, LL_DMA_STREAM_2, LL_DMA_FIFOTHRESHOLD_FULL);
 
   LL_DMA_SetMemoryBurstxfer(DMA1, LL_DMA_STREAM_2, LL_DMA_MBURST_SINGLE);
 
   LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_2, LL_DMA_PBURST_SINGLE);
+	
+	LL_DMA_EnableIT_HT(DMA1, LL_DMA_STREAM_2);
+	LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_2);
+	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_2);
 
   /* UART4_TX Init */
   LL_DMA_SetPeriphRequest(DMA1, LL_DMA_STREAM_3, LL_DMAMUX1_REQ_UART4_TX);
@@ -99,9 +103,16 @@ void MX_UART4_Init(void)
   LL_DMA_SetMemorySize(DMA1, LL_DMA_STREAM_3, LL_DMA_MDATAALIGN_BYTE);
 
   LL_DMA_DisableFifoMode(DMA1, LL_DMA_STREAM_3);
-
+	LL_DMA_ClearFlag_TC1(DMA1);
+	LL_DMA_ClearFlag_HT1(DMA1);
+	LL_DMA_ClearFlag_TE1(DMA1);
+	LL_DMA_ClearFlag_DME1(DMA1);
+	LL_DMA_ClearFlag_FE1(DMA1);
+	// 使能传输完成中断
+	LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_3);
+	LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_3);
   /* UART4 interrupt Init */
-  NVIC_SetPriority(UART4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  NVIC_SetPriority(UART4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),2, 1));
   NVIC_EnableIRQ(UART4_IRQn);
 
   /* USER CODE BEGIN UART4_Init 1 */
@@ -122,7 +133,10 @@ void MX_UART4_Init(void)
   LL_USART_ConfigAsyncMode(UART4);
 
   /* USER CODE BEGIN WKUPType UART4 */
-
+	LL_USART_EnableDMAReq_RX(UART4);                                     // 使能DMA接收
+	LL_USART_EnableDMAReq_TX(UART4);                                     // 使能DMA发送
+	LL_USART_EnableIT_IDLE(UART4);                                       // 串口空闲中断
+                                          
   /* USER CODE END WKUPType UART4 */
 
   LL_USART_Enable(UART4);
@@ -214,7 +228,7 @@ void MX_USART1_UART_Init(void)
   LL_DMA_SetPeriphBurstxfer(DMA1, LL_DMA_STREAM_1, LL_DMA_PBURST_SINGLE);
 
   /* USART1 interrupt Init */
-  NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  NVIC_SetPriority(USART1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),2, 0));
   NVIC_EnableIRQ(USART1_IRQn);
 
   /* USER CODE BEGIN USART1_Init 1 */

@@ -1,0 +1,5 @@
+../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h:1522:22:LL_AHB4_GRP1_ForceReset	0	static
+../../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h:1564:22:LL_AHB4_GRP1_ReleaseReset	0	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c:104:13:LL_GPIO_DeInit	8	static
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c:200:13:LL_GPIO_Init	32	static,ignoring_inline_asm
+/Users/ample/h750-rt-thread/h750-rt-thread-main/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c:274:6:LL_GPIO_StructInit	0	static

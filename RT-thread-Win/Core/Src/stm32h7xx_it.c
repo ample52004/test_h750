@@ -142,13 +142,13 @@ void DMA1_Stream0_IRQHandler(void)
 		rt_interrupt_enter(); 
     if (LL_DMA_IsEnabledIT_HT(DMA1, LL_DMA_STREAM_0) && LL_DMA_IsActiveFlag_HT0(DMA1)) 
     {
-        uart_dmarx_half_done_isr(DEV_UART1);
+        //uart_dmarx_half_done_isr(DEV_UART1);
         LL_DMA_ClearFlag_HT0(DMA1);             
     }
 
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_0) && LL_DMA_IsActiveFlag_TC0(DMA1)) 
     {
-          uart_dmarx_done_isr(DEV_UART1);
+          //uart_dmarx_done_isr(DEV_UART1);
           LL_DMA_ClearFlag_TC0(DMA1);          
     }
 		rt_interrupt_leave(); 
@@ -168,7 +168,7 @@ void DMA1_Stream1_IRQHandler(void)
 		rt_interrupt_enter(); 
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_1) && LL_DMA_IsActiveFlag_TC1(DMA1)) 
     {
-        uart_dmatx_done_isr(DEV_UART1);
+        //uart_dmatx_done_isr(DEV_UART1);
         LL_DMA_ClearFlag_TC1(DMA1);             
     }
 		rt_interrupt_leave(); 
@@ -188,13 +188,13 @@ void DMA1_Stream2_IRQHandler(void)
 		rt_interrupt_enter(); 
     if (LL_DMA_IsEnabledIT_HT(DMA1, LL_DMA_STREAM_2) && LL_DMA_IsActiveFlag_HT0(DMA1)) 
     {
-        uart_dmarx_half_done_isr(DEV_UART1);
+        //uart_dmarx_half_done_isr(DEV_UART1);
         LL_DMA_ClearFlag_HT0(DMA1);             
     }
 
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_2) && LL_DMA_IsActiveFlag_TC0(DMA1)) 
     {
-          uart_dmarx_done_isr(DEV_UART2);
+          //uart_dmarx_done_isr(DEV_UART2);
           LL_DMA_ClearFlag_TC0(DMA1);          
     }
 		rt_interrupt_leave(); 
@@ -214,7 +214,7 @@ void DMA1_Stream3_IRQHandler(void)
 		rt_interrupt_enter(); 
     if (LL_DMA_IsEnabledIT_TC(DMA1, LL_DMA_STREAM_2) && LL_DMA_IsActiveFlag_TC1(DMA1)) 
     {
-        uart_dmatx_done_isr(DEV_UART2);
+        //uart_dmatx_done_isr(DEV_UART2);
         LL_DMA_ClearFlag_TC1(DMA1);             
     }
 		rt_interrupt_leave();
@@ -230,8 +230,29 @@ void DMA1_Stream3_IRQHandler(void)
   */
 void UART4_IRQHandler(void)
 {
+	
   /* USER CODE BEGIN UART4_IRQn 0 */
-
+	// 检测串口空闲中断
+	if(LL_USART_IsEnabledIT_IDLE(UART4) && LL_USART_IsActiveFlag_IDLE(UART4))
+	{
+		LL_DMA_DisableStream(DMA2, LL_DMA_STREAM_0);
+		// 清除中断标志位
+		LL_USART_ClearFlag_IDLE(UART4);
+		//
+		usart4.rxlen = USART_BUF_LEN - LL_DMA_GetDataLength(DMA2, LL_DMA_STREAM_0); // 获取接收数据长度                                                    // 数据获取标志位
+		SCB_InvalidateDCache_by_Addr(usart4.rxbuf, usart4.rxlen);
+		LL_DMA_SetMemoryAddress(DMA2, LL_DMA_STREAM_0, (uint32_t)usart4.rxbuf);// 缓存地址
+		LL_DMA_SetDataLength(DMA2, LL_DMA_STREAM_0, USART_BUF_LEN);           // 缓存大小
+        // 使能通道
+		LL_DMA_EnableStream(DMA2, LL_DMA_STREAM_0);
+		flag = 1;
+	}
+	else
+	{
+		// Call Error function
+		NVIC_DisableIRQ(UART4_IRQn);                                     // 关闭串口中断
+	}
+  /* USER CODE END DMA1_Stre
   /* USER CODE END UART4_IRQn 0 */
   /* USER CODE BEGIN UART4_IRQn 1 */
 

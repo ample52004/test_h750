@@ -86,8 +86,7 @@ void uart_device_init(uint8_t uart_id)
 		s_uart_dev[uart_id].dmarx_buf_size = sizeof(s_uart1_dmarx_buf);
 		s_uart_dev[uart_id].dmatx_buf = &s_uart1_dmatx_buf[0];
 		s_uart_dev[uart_id].dmatx_buf_size = sizeof(s_uart1_dmatx_buf);
-		usart1_dma_init(s_uart_dev[uart_id].dmarx_buf, 
-							   sizeof(s_uart1_dmarx_buf));/* 只需配置接收模式DMA，发送模式需发送数据时才配置 */
+		
 		s_uart_dev[uart_id].status  = 0;
 	}
 	else if (uart_id == 1)

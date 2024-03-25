@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stm32h7xx_hal.h": "c",
+        "string.h": "c",
+        "stm32h7xx.h": "c"
+    }
+}

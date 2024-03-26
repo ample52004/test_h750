@@ -3,12 +3,10 @@ h750-hal-main\ringbuffer.o: ../Core/Inc/ringbuffer.h
 h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rthw.h
 h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
 h750-hal-main\ringbuffer.o: ../RT-Thread/rtconfig.h
-h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
 h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
 h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
 h750-hal-main\ringbuffer.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
-h750-hal-main\ringbuffer.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
 h750-hal-main\ringbuffer.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h
 h750-hal-main\ringbuffer.o: ../Drivers/CMSIS/Include/core_cm7.h
 h750-hal-main\ringbuffer.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdint.h

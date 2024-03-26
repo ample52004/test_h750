@@ -45,11 +45,9 @@ h750-hal-main\libuart.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 h750-hal-main\libuart.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
 h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
 h750-hal-main\libuart.o: ../RT-Thread/rtconfig.h
-h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
 h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
 h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
 h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
-h750-hal-main\libuart.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
-h750-hal-main\libuart.o: ..\Modules\LibUart\Inc\libuart_fifo.h
+h750-hal-main\libuart.o: ../Modules/LibUart/Inc/libuart_fifo.h
 h750-hal-main\libuart.o: ../Core/Inc/libuart.h
 h750-hal-main\libuart.o: ../Core/Inc/libfifo.h

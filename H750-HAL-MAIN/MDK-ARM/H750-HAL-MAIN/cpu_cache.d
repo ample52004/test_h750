@@ -2,12 +2,10 @@ h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/libcpu/arm
 h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rthw.h
 h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
 h750-hal-main\cpu_cache.o: ../RT-Thread/rtconfig.h
-h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
 h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
 h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
 h750-hal-main\cpu_cache.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
-h750-hal-main\cpu_cache.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
 h750-hal-main\cpu_cache.o: ../Core/Inc/board.h
 h750-hal-main\cpu_cache.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h
 h750-hal-main\cpu_cache.o: ../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h

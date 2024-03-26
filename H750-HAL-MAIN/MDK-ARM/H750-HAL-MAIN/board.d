@@ -2,12 +2,10 @@ h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/bsp/_template/
 h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rthw.h
 h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
 h750-hal-main\board.o: ../RT-Thread/rtconfig.h
-h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
 h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
 h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
 h750-hal-main\board.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
-h750-hal-main\board.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
 h750-hal-main\board.o: ../Core/Inc/main.h
 h750-hal-main\board.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h
 h750-hal-main\board.o: ../Core/Inc/stm32h7xx_hal_conf.h
@@ -49,7 +47,3 @@ h750-hal-main\board.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h
 h750-hal-main\board.o: ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h
 h750-hal-main\board.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 h750-hal-main\board.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
-h750-hal-main\board.o: ../Core/Inc/BSP_Init.h
-h750-hal-main\board.o: ../Core/Inc/ringbuffer.h
-h750-hal-main\board.o: ../Core/Inc/gpio.h
-h750-hal-main\board.o: ../Core/Inc/usart.h

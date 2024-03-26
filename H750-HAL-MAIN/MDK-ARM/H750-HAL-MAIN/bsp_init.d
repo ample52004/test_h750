@@ -44,13 +44,7 @@ h750-hal-main\bsp_init.o: D:\Keil\ARM\ARMCC\Bin\..\include\stdarg.h
 h750-hal-main\bsp_init.o: D:\Keil\ARM\ARMCC\Bin\..\include\string.h
 h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtthread.h
 h750-hal-main\bsp_init.o: ../RT-Thread/rtconfig.h
-h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_config.h
 h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdebug.h
 h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtdef.h
 h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/include/rtservice.h
-h750-hal-main\bsp_init.o: ../Middlewares/Third_Party/RealThread_RTOS/finsh/finsh_api.h
 h750-hal-main\bsp_init.o: ../Core/Inc/dma.h
-h750-hal-main\bsp_init.o: ../Core/Inc/eth.h
-h750-hal-main\bsp_init.o: ../Core/Inc/tim.h
-h750-hal-main\bsp_init.o: ../Core/Inc/usart.h
-h750-hal-main\bsp_init.o: ../Core/Inc/gpio.h

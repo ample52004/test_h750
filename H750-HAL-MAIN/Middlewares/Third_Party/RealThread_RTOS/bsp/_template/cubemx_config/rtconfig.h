@@ -27,7 +27,7 @@
 
 // <o>the stack size of main thread<1-4086>
 //  <i>Default: 512
-#define RT_MAIN_THREAD_STACK_SIZE     256
+#define RT_MAIN_THREAD_STACK_SIZE     1024
 
 // </h>
 
@@ -67,7 +67,7 @@
 #define RT_TIMER_THREAD_PRIO        4
 // <o>The stack size of timer thread <0-8192>
 //  <i>Default: 512
-#define RT_TIMER_THREAD_STACK_SIZE  512
+#define RT_TIMER_THREAD_STACK_SIZE  2048
 // </e>
 
 // <h>IPC(Inter-process communication) Configuration
@@ -77,11 +77,11 @@
 // </c>
 // <c1>Using Mutex
 //  <i>Using Mutex
-//#define RT_USING_MUTEX
+#define RT_USING_MUTEX
 // </c>
 // <c1>Using Event
 //  <i>Using Event
-//#define RT_USING_EVENT
+#define RT_USING_EVENT
 // </c>
 // <c1>Using MailBox
 //  <i>Using MailBox
@@ -89,14 +89,14 @@
 // </c>
 // <c1>Using Message Queue
 //  <i>Using Message Queue
-//#define RT_USING_MESSAGEQUEUE
+#define RT_USING_MESSAGEQUEUE
 // </c>
 // </h>
 
 // <h>Memory Management Configuration
 // <c1>Memory Pool Management
 //  <i>Memory Pool Management
-//#define RT_USING_MEMPOOL
+#define RT_USING_MEMPOOL
 // </c>
 // <c1>Dynamic Heap Management(Algorithm: small memory )
 //  <i>Dynamic Heap Management
@@ -112,7 +112,7 @@
 // <h>Console Configuration
 // <c1>Using console
 //  <i>Using console
-//#define RT_USING_CONSOLE
+#define RT_USING_CONSOLE
 // </c>
 // <o>the buffer size of console <1-1024>
 //  <i>the buffer size of console
@@ -123,7 +123,7 @@
 // <h>FinSH Configuration
 // <c1>include finsh config
 //  <i>Select this choice if you using FinSH 
-//#include "finsh_config.h"
+#include "finsh_config.h"
 // </c>
 // </h>
 

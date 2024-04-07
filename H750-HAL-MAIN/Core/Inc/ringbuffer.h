@@ -1,8 +1,8 @@
 #include <rthw.h>
 #include <rtthread.h>
 #include "stm32h750xx.h"
-#include "gpio.h"
-#include "usart.h"
+
+#include "BSP_Init.h"
 struct rt_ringbuffer
 { 
    

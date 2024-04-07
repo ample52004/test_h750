@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "stm32h7xx_hal.h": "c"
+        "lwip.h": "c",
+        "timeouts.h": "c",
+        "arch.h": "c",
+        "sockets.h": "c",
+        "libuart_fifo.h": "c",
+        "libuart.h": "c",
+        "string.h": "c",
+        "sockets_priv.h": "c"
     }
 }

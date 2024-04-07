@@ -1,133 +1,119 @@
-/* USER CODE BEGIN Header */
-/**
+/** 
   ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
+  * @file    main.c 
+  * @author  Hsiang Hsu
+  * @version V0.0.1
+  * @date    2022年12月25日(V0.0.1)：初始版本
+  *          2023年11月27日(V0.0.2)：修改文件类型，设计LL库程序
+  * @brief   主函数
   ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+**/ 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "dma.h"
-#include "lwip.h"
-#include "tim.h"
-#include "usart.h"
-#include "gpio.h"
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
+#include "BSP_Init.h"
+#include "rtthread.h"
 /* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
 /* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-
-/* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
 /* Private variables ---------------------------------------------------------*/
+SUASRT usart2 = {0};                                                      // 串口2数据
+SUASRT uart4 = {0};                                                      // 串口4数据
+extern DMA_HandleTypeDef hdma_usart1_rx;
+extern DMA_HandleTypeDef hdma_usart1_tx;
+extern UART_HandleTypeDef huart1;
 
-/* USER CODE BEGIN PV */
+uint8_t rx_len=0;  
+uint8_t recv_flag_usart2=0;
+uint8_t recv_flag_uart4=0;
+uint16_t PwmNum_Channel1 = 8000;
+uint16_t PwmNum_Channel2 = 8000;
+/* TIM2CH1_CAPTURE_STA 各数据位说明
+** bit7   捕获完成标志
+** bit6	  捕获到高电平标志
+** bit5~0 捕获高电平后定时器溢出的次数*/
+uint8_t TIM2CH1_CAPTURE_STA=0; // 输入捕获状态
+uint16_t TIM2CH1_CAPTURE_VAL;  // 输入捕获值
+/* TIM2CH2_CAPTURE_STA 各数据位说明
+** bit7   捕获完成标志
+** bit6	  捕获到高电平标志
+** bit5~0 捕获高电平后定时器溢出的次数*/
+uint8_t TIM2CH2_CAPTURE_STA=0;
+uint16_t TIM2CH2_CAPTURE_VAL;
+uint32_t temp_tim;
+uint32_t temp_tim2;
 
-/* USER CODE END PV */
+unsigned char Rx_Buf[USART_BUF_LEN] = {0};
+unsigned char Rx_Buf_test[10] = {65,66,67,68,69,70,71,10};
+unsigned char flag = 0;
 
-/* Private function prototypes -----------------------------------------------*/
+static rt_thread_t LED_Test = RT_NULL;
+static rt_thread_t DMA_Test = RT_NULL;
+static rt_thread_t TIM_Cap = RT_NULL;
+static rt_sem_t DMA_Sem = RT_NULL;
+static rt_sem_t DMA_Sem_Stop = RT_NULL;
+
 void SystemClock_Config(void);
-static void MPU_Config(void);
-/* USER CODE BEGIN PFP */
+void MPU_Config(void);
+static void Start_Count_PWM(uint16_t PwmNum_Channel, uint32_t Channel);
+static void Rt_LED_Init(void);
+static void LED_Test_entry(void *parameter);
+static void Rt_Sem_Init(void);
+static void Rt_DMA_Init(void);
+static void DMA_Test_entry(void *parameter);
+static void DMA_Start(void);
+static void DMA_Stop(void);
+static void AppUART_Init(void);
+static void AppUART_Task(void);
+static void Rt_TIM_Cap_Init(void);
+static void TIM_Cap_entry(void *parameter);
+/* Private functions ---------------------------------------------------------*/
 
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
+/*******************************************************************************
+** 名    称 : main
+** 功    能 : 主函数
+** 入口参数 : 无
+** 出口参数 : int
+*******************************************************************************/
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+	BSP_Init();
+  HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
 
-  /* MPU Configuration--------------------------------------------------------*/
-  MPU_Config();
-/* Enable the CPU Cache */
+	//AppUART_Init();
+	recv_flag_uart4=0;
+  recv_flag_usart2 =0;
 
-  /* Enable I-Cache---------------------------------------------------------*/
-  SCB_EnableICache();
-
-  /* Enable D-Cache---------------------------------------------------------*/
-  SCB_EnableDCache();
-
-  /* MCU Configuration--------------------------------------------------------*/
-
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
-
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_UART4_Init();
-  MX_USART1_UART_Init();
-  MX_USART2_UART_Init();
-  MX_TIM1_Init();
-  MX_TIM2_Init();
-  MX_TIM3_Init();
-  MX_TIM4_Init();
-  MX_TIM5_Init();
-  MX_TIM8_Init();
-  MX_LWIP_Init();
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+	Rt_LED_Init();
+  Rt_Sem_Init();
+	Rt_DMA_Init();	
+	Rt_TIM_Cap_Init();
+  static char tempbuf[128];
 }
 
+/* ==============   BOARD SPECIFIC CONFIGURATION CODE BEGIN    ============== */
 /**
-  * @brief System Clock Configuration
+  * @brief  System Clock Configuration
+  *         The system Clock is configured as follow :
+  *            System Clock source            = PLL1 (HSE BYPASS)
+  *            SYSCLK(Hz)                     = 400000000 (CPU Clock)
+  *            HCLK(Hz)                       = 200000000 (AXI and AHBs Clock)
+  *            AHB Prescaler                  = 2
+  *            D1 APB3 Prescaler              = 2 (APB3 Clock  100MHz)
+  *            D2 APB1 Prescaler              = 2 (APB1 Clock  100MHz)
+  *            D2 APB2 Prescaler              = 2 (APB2 Clock  100MHz)
+  *            D3 APB4 Prescaler              = 2 (APB4 Clock  100MHz)
+  *            HSE Frequency(Hz)              = 25000000
+  *            PLL_M                          = 5
+  *            PLL_N                          = 160
+  *            PLL_P                          = 2
+  *            PLL_Q                          = 2
+  *            PLL_R                          = 2
+  *            VDD(V)                         = 3.3
+  * @param  None
   * @retval None
   */
 void SystemClock_Config(void)
@@ -187,11 +173,11 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  __HAL_RCC_D2SRAM1_CLK_ENABLE();
+  __HAL_RCC_D2SRAM2_CLK_ENABLE();
+  __HAL_RCC_D2SRAM3_CLK_ENABLE();
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
 
 /* MPU Configuration */
 
@@ -206,22 +192,315 @@ void MPU_Config(void)
   */
   MPU_InitStruct.Enable = MPU_REGION_ENABLE;
   MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-  MPU_InitStruct.BaseAddress = 0x24000000;
-  MPU_InitStruct.Size = MPU_REGION_SIZE_512KB;
+  MPU_InitStruct.BaseAddress = 0x0;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
+  MPU_InitStruct.SubRegionDisable = 0x87;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+  MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
+  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+  /** Initializes and configures the Region and the memory to be protected
+  */
+  MPU_InitStruct.Number = MPU_REGION_NUMBER1;
+  MPU_InitStruct.BaseAddress = 0x30020000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_128KB;
   MPU_InitStruct.SubRegionDisable = 0x0;
   MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL1;
   MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
-  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_ENABLE;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
+
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+  /** Initializes and configures the Region and the memory to be protected
+  */
+  MPU_InitStruct.Number = MPU_REGION_NUMBER2;
+  MPU_InitStruct.BaseAddress = 0x30040000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_512B;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
   MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-  MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
   MPU_InitStruct.IsBufferable = MPU_ACCESS_BUFFERABLE;
 
   HAL_MPU_ConfigRegion(&MPU_InitStruct);
+  
   /* Enables the MPU */
   HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
 
+
+}
+/*******************************************************************************
+** 名    称 : Start_Count_PWM
+** 功    能 : 开启中断PWM计数，只能设置TIM1 Channel1 Channel2
+** 入口参数 : uint16_t PwmNum_Channel PWM数量 
+             uint32_t Channel        PWM 通道
+** 出口参数 :  无
+*******************************************************************************/
+void Start_Count_PWM(uint16_t PwmNum_Channel, uint32_t Channel)
+{
+    if (Channel == TIM_CHANNEL_1)
+    {
+      PwmNum_Channel1 = PwmNum_Channel;
+      HAL_TIM_PWM_Start_IT(&htim1,Channel);
+
+    }
+    if (Channel == TIM_CHANNEL_2)
+    {
+      PwmNum_Channel2 = PwmNum_Channel;
+      HAL_TIM_PWM_Start_IT(&htim1,Channel);
+    } 
+}
+/*******************************************************************************
+** 名    称 : Start_Count_PWM_Gate
+** 功    能 : 开启门控中断PWM计数，只能设置TIM1 Channel3
+** 入口参数 : 无
+** 出口参数 :  uint16_t PwmNum_Channel PWM数量  少于256
+              uint32_t Channel         PWM 通道
+*******************************************************************************/
+void Start_Count_PWM_Gate(uint32_t PwmNum_Channel)
+{  
+  __HAL_TIM_SET_AUTORELOAD(&htim3,PwmNum_Channel-1); //设置要输出的PWM脉冲数 5个
+  HAL_TIM_Base_Start_IT(&htim3);             //启动从定时器
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);  //启动主定时器PWM输出
+}
+/*******************************************************************************
+** 名    称 : LED_Init
+** 功    能 : LED线程初始化
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void Rt_LED_Init(void)
+{
+    LED_Test = rt_thread_create("LED Test",
+                                LED_Test_entry,
+                                RT_NULL,
+                                1024,
+                                18,
+                                10);
+    if (LED_Test != RT_NULL) 
+    {
+      rt_thread_startup(LED_Test);
+    }
+}
+/*******************************************************************************
+** 名    称 : LED_Test_entry
+** 功    能 : LED线程
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void LED_Test_entry(void *parameter)
+{
+  while (1)
+  {
+    LED1_Toggle;
+    rt_thread_mdelay(1000);
+    LED2_Toggle;
+    rt_thread_mdelay(1000);
+  }
+}
+/*******************************************************************************
+** 名    称 : Rt_Sem_Init
+** 功    能 : 初始化信号量
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void Rt_Sem_Init()
+{
+    DMA_Sem = rt_sem_create("DMA_Sem", 0, RT_IPC_FLAG_PRIO);
+    if (DMA_Sem == RT_NULL)
+    {
+        rt_kprintf("create dynamic semaphore failed.\n");
+    }
+    DMA_Sem_Stop = rt_sem_create("DMA_Sem_Stop", 0, RT_IPC_FLAG_PRIO);
+    if (DMA_Sem_Stop == RT_NULL)
+    {
+        rt_kprintf("create dynamic semaphore failed.\n");
+    }
+}
+void Rt_TIM_Cap_Init(void)
+{
+  rt_kprintf("This is TIM_CAP test...\n");
+  TIM_Cap = rt_thread_create("TIM_Cap",
+                              TIM_Cap_entry,
+                              RT_NULL,
+                              1024,
+                              16,
+                              10);
+  if (TIM_Cap != RT_NULL) 
+  {
+    rt_thread_startup(TIM_Cap);
+  }
+}
+void TIM_Cap_entry(void *parameter)
+{
+  while (1)
+  {
+    rt_thread_mdelay(1);
+    if(TIM2CH1_CAPTURE_STA &0X80)//成功捕获一次上升沿
+		{
+      temp_tim=TIM2CH1_CAPTURE_STA&0X3F;
+      temp_tim*=65536;//溢出时间总和          //对应和TIM_Period一致 TIM是16位的 最大即为65536
+      temp_tim+=TIM2CH1_CAPTURE_VAL;//总计数总和
+		  if(temp_tim>1000)             //省去一些干扰信号
+      {
+        rt_kprintf("Channel1电平持续时间:%d us     \n",temp_tim);//us
+      }
+      TIM2CH1_CAPTURE_STA=0;//开启下一次捕获
+		}
+    if(TIM2CH2_CAPTURE_STA &0X80)//成功捕获一次上升沿
+		{
+      temp_tim2=TIM2CH2_CAPTURE_STA&0X3F;
+      temp_tim2*=65536;//溢出时间总和          //对应和TIM_Period一致 TIM是16位的 最大即为65536
+      temp_tim2+=TIM2CH2_CAPTURE_VAL;//总计数总和
+		  if(temp_tim2>1000)             //省去一些干扰信号
+      {
+        rt_kprintf("Channel2电平持续时间:%d us     ",temp_tim2);//us
+        rt_kprintf("\n");//空行
+      }
+			TIM2CH2_CAPTURE_STA=0;//开启下一次捕获
+		}
+  }
+}
+/*******************************************************************************
+** 名    称 : Rt_DMA_Init
+** 功    能 : 初始化DMA线程
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void Rt_DMA_Init(void)
+{
+    DMA_Test = rt_thread_create("DMA Test",
+                                DMA_Test_entry,
+                                RT_NULL,
+                                1024,
+                                15,
+                                10);
+    if (DMA_Test != RT_NULL) 
+    {
+      rt_thread_startup(DMA_Test);
+    }
 }
 
+void DMA_Test_entry(void *parameter)
+{
+  while (1)
+  {
+    if(recv_flag_uart4 ==1)			
+      {	
+        rt_kprintf("接收到的数据长度为%d    ",uart4.rxlen);
+        recv_flag_uart4 = 0;
+        /* 开启了cache 由于DMA更新了内存 cache不能同步，因此需要无效化从新加载 */
+        SCB_InvalidateDCache_by_Addr((uint32_t *)uart4.rxbuf, USART_BUF_LEN);
+
+        rt_memcpy(uart4.txbuf, uart4.rxbuf, USART_BUF_LEN);
+        /* DMA发送时 cache的内容需要更新到SRAM中 */
+        SCB_CleanDCache_by_Addr((uint32_t *)uart4.rxbuf, USART_BUF_LEN);
+        HAL_UART_Transmit_DMA(&huart4,uart4.txbuf,USART_BUF_LEN);// DMA发送
+        uart4.rxlen=0;  
+        HAL_UART_Receive_DMA(&huart4,uart4.rxbuf,USART_BUF_LEN);
+      }
+  //      if(recv_flag_usart2 ==1)			
+  //		{	
+  //			rt_kprintf("usart2接收到的数据长度为%d    ",usart2.rxlen);
+  //      recv_flag_usart2 = 0;
+  //      /* 开启了cache 由于DMA更新了内存 cache不能同步，因此需要无效化从新加载 */
+  //      SCB_InvalidateDCache_by_Addr((uint32_t *)usart2.rxbuf, USART_BUF_LEN);
+
+  //      rt_memcpy(usart2.txbuf, usart2.rxbuf, USART_BUF_LEN);
+  //      /* DMA发送时 cache的内容需要更新到SRAM中 */
+  //      SCB_CleanDCache_by_Addr((uint32_t *)usart2.rxbuf, USART_BUF_LEN);
+  //			HAL_UART_Transmit_DMA(&huart2,usart2.txbuf,usart2.rxlen);// DMA发送
+  //      usart2.rxlen=0;  
+  //      HAL_UART_Receive_DMA(&huart2,usart2.rxbuf,USART_BUF_LEN);
+  //		}
+    rt_thread_mdelay(1);
+  }
+  
+
+}
+
+/*******************************************************************************
+** 名    称 : DMA_Start
+** 功    能 : 开启DMA接收
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void DMA_Start()
+{
+  rt_sem_release(DMA_Sem);
+}
+/*******************************************************************************
+** 名    称 : DMA_Start
+** 功    能 : 开启DMA接收
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void DMA_Stop()
+{
+  rt_sem_release(DMA_Sem_Stop);
+	
+}
+/*******************************************************************************
+** 名    称 : AppUART_Init
+** 功    能 : 测试DMA接收
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void AppUART_Init(void)
+{
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart4, uart4.rxbuf, USART_BUF_LEN);
+}
+/*******************************************************************************
+** 名    称 : AppUART_Task
+** 功    能 : 测试DMA接收
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void AppUART_Task(void)
+{
+    if (recv_flag_uart4 == 1)
+    {
+        recv_flag_uart4 = 0;
+        /* 开启了cache 由于DMA更新了内存 cache不能同步，因此需要无效化从新加载 */
+        SCB_InvalidateDCache_by_Addr((uint32_t *)uart4.rxbuf, USART_BUF_LEN);
+        //printf("%.*s\r\n", g_U1RxSize, g_U1RxBuffer);
+         
+        memcpy(uart4.txbuf, uart4.rxbuf, USART_BUF_LEN);
+        /* DMA发送时 cache的内容需要更新到SRAM中 */
+        SCB_CleanDCache_by_Addr((uint32_t *)uart4.rxbuf, USART_BUF_LEN);
+        HAL_UART_Transmit_DMA(&huart4, uart4.txbuf, USART_BUF_LEN);
+    }
+    rt_thread_mdelay(10);
+}
+/*******************************************************************************
+** 名    称 : delay_us
+** 功    能 : 微秒延时
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void delay_us(uint16_t nus)
+{
+	__HAL_TIM_SET_COUNTER(TIM_HANDLE, 0); //把计数器的值设置为0
+	__HAL_TIM_ENABLE(TIM_HANDLE); //开启计数
+	while (__HAL_TIM_GET_COUNTER(TIM_HANDLE) < nus); //每计数一次，就是1us，直到计数器值等于我们需要的时间
+	__HAL_TIM_DISABLE(TIM_HANDLE); //关闭计数
+}
+/*******************************************************************************
+** 名    称 : delay_s
+** 功    能 : 秒延时
+** 入口参数 : 无
+** 出口参数 :  无
+*******************************************************************************/
+void delay_s(uint16_t s)
+{
+	__HAL_TIM_SET_COUNTER(TIM_HANDLE_S, 0); //把计数器的值设置为0
+	__HAL_TIM_ENABLE(TIM_HANDLE_S); //开启计数
+	while (__HAL_TIM_GET_COUNTER(TIM_HANDLE_S) < s); //每计数一次，就是1s，直到计数器值等于我们需要的时间
+	__HAL_TIM_DISABLE(TIM_HANDLE_S); //关闭计数
+}
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None

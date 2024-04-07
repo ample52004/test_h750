@@ -12,6 +12,10 @@
 #include <rtthread.h>
 
 #include "main.h"
+#include "BSP_Init.h"
+#include "ringbuffer.h"
+struct rt_ringbuffer  uart_rxcb;         /* ???? ringbuffer cb */
+struct rt_semaphore shell_rx_sem; /* ????????? */
 
 #if defined(RT_USING_USER_MAIN) && defined(RT_USING_HEAP)
 /*
@@ -47,15 +51,28 @@ void SysTick_Handler(void)
 void rt_hw_board_init(void)
 {
     extern void SystemClock_Config(void);
-    
+
+    /* Enable the CPU Cache */
+    MPU_Config();
+    /* Enable I-Cache---------------------------------------------------------*/
+    SCB_EnableICache();
+
+    /* Enable D-Cache---------------------------------------------------------*/
+    SCB_EnableDCache();
+
     HAL_Init();
+	
     SystemClock_Config();
+	
     SystemCoreClockUpdate();
+	
+
     /* 
      * 1: OS Tick Configuration
      * Enable the hardware timer and call the rt_os_tick_callback function
      * periodically with the frequency RT_TICK_PER_SECOND. 
      */
+    
     HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/RT_TICK_PER_SECOND);
 
     /* Call components board initial (use INIT_BOARD_EXPORT()) */
@@ -73,20 +90,34 @@ void rt_hw_board_init(void)
 static UART_HandleTypeDef UartHandle;
 static int uart_init(void)
 {
-    /* TODO: Please modify the UART port number according to your needs */
-    UartHandle.Instance = USART2;
-    UartHandle.Init.BaudRate = 115200;
-    UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
-    UartHandle.Init.StopBits = UART_STOPBITS_1;
-    UartHandle.Init.Parity = UART_PARITY_NONE;
-    UartHandle.Init.Mode = UART_MODE_TX_RX;
-    UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+  UartHandle.Instance = USART1;
+  UartHandle.Init.BaudRate = 115200;
+  UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
+  UartHandle.Init.StopBits = UART_STOPBITS_1;
+  UartHandle.Init.Parity = UART_PARITY_NONE;
+  UartHandle.Init.Mode = UART_MODE_TX_RX;
+  UartHandle.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  UartHandle.Init.OverSampling = UART_OVERSAMPLING_16;
+  UartHandle.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  UartHandle.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  UartHandle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&UartHandle) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&UartHandle, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&UartHandle, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&UartHandle) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-    if (HAL_UART_Init(&UartHandle) != HAL_OK)
-    {
-        while (1);
-    }
     return 0;
 }
 INIT_BOARD_EXPORT(uart_init);
@@ -117,14 +148,25 @@ char rt_hw_console_getchar(void)
     /* Note: the initial value of ch must < 0 */
     int ch = -1;
 
-    if (__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_RXNE) != RESET)
-    {
-        ch = UartHandle.Instance->DR & 0xff;
-    }
-    else
-    {
-        rt_thread_mdelay(10);
-    }
+//    if (__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_RXNE) != RESET)
+//    {
+//        ch = UartHandle.Instance->RDR & 0xff;
+//    }
+//    else
+//    {
+//        rt_thread_mdelay(10);
+//    }
+		while(__HAL_UART_GET_FLAG(&UartHandle, UART_FLAG_RXNE))
+		{
+			HAL_UART_Receive_IT(&huart1, &ch, 1);
+			if (ch == -1)
+			{ 
+				break;
+			}              /* ?????,????? ringbuffer */
+			rt_ringbuffer_putchar(&uart_rxcb, ch);
+		}        
+		rt_sem_release(&shell_rx_sem);
     return ch;
+
 }
 #endif

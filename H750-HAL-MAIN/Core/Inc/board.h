@@ -5,8 +5,7 @@
 #include "main.h"
 #include "string.h"
 #include <rthw.h>
-#include "gpio.h"
-#include "usart.h"
+#include "BSP_Init.h"
 #include "ringbuffer.h"
 void rt_hw_board_init(void);
 void SysTick_Handler(void);

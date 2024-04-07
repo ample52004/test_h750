@@ -1,8 +1,8 @@
 /*********************************************************************************
  *    Description:
  *    version: V1.0.0
- *    Author:  ÕÅ´ï÷ë <zhangdalin@dtusystem.com>
- *    LastEditors: ÕÅ´ï÷ë <zhangdalin@dtusystem.com>
+ *    Author:  å¼ è¾¾éºŸ <zhangdalin@dtusystem.com>
+ *    LastEditors: å¼ è¾¾éºŸ <zhangdalin@dtusystem.com>
  *    Date: 2023-12-01 16:18:48
  *    LastEditTime: 2023-12-08 10:12:17
 *********************************************************************************/
@@ -11,8 +11,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "BSP_Init.h"
-#include "libfifo.h"
+#include "BSP_Init.H"
+#include "libuart_fifo.h"
 #include "libuart.h"
 #include "main.h"
 
@@ -23,16 +23,16 @@ typedef enum
     UART_BUSY = 1
 }uart_trans_status;
 
-/* fifoÉÏËøº¯Êı */
+/* fifoä¸Šé”å‡½æ•° */
 static void fifo_lock(void)
 {
-    __disable_irq(); //¹Ø±ÕËùÓĞÖĞ¶Ï,armÄÚºËÍ¨ÓÃ
+    __disable_irq(); //å…³é—­æ‰€æœ‰ä¸­æ–­,armå†…æ ¸é€šç”¨
 }
 
-/* fifo½âËøº¯Êı */
+/* fifoè§£é”å‡½æ•° */
 static void fifo_unlock(void)
 {
-    __enable_irq();//¿ªÆôËùÓĞÖĞ¶Ï
+    __enable_irq();//å¼€å¯æ‰€æœ‰ä¸­æ–­
 }
 
 UartDevice uart1_device;
@@ -57,13 +57,13 @@ void UartDeviceImplInit(UartDeviceImpl *uartDeviceImpl, UART_HandleTypeDef *huar
                     uint8_t *dmatx_buf, uint16_t dmatx_buf_size,
                     uint8_t *dmarx_buf, uint16_t dmarx_buf_size)
 {
-    /* ÅäÖÃ´®¿ÚÊÕ·¢fifo */
+    /* é…ç½®ä¸²å£æ”¶å‘fifo */
     fifo_register(&uartDeviceImpl->tx_fifo, uart_tx_buf,
         uart_tx_buf_size, fifo_lock, fifo_unlock);
     fifo_register(&uartDeviceImpl->rx_fifo, uart_rx_buf,
         uart_rx_buf_size, fifo_lock, fifo_unlock);
 
-    /* ÅäÖÃ´®¿Ú DMAÊÕ·¢buf */
+    /* é…ç½®ä¸²å£ DMAæ”¶å‘buf */
     uartDeviceImpl->huart = huart;
     uartDeviceImpl->hdma_rx = huart->hdmarx;
     uartDeviceImpl->hdma_tx = huart->hdmatx;
@@ -79,7 +79,7 @@ void UartDeviceImplInit(UartDeviceImpl *uartDeviceImpl, UART_HandleTypeDef *huar
 }
 
 /**
- * @brief ´®¿ÚÉè±¸³õÊ¼»¯
+ * @brief ä¸²å£è®¾å¤‡åˆå§‹åŒ–
  * @param
  * @retval
  */
@@ -97,7 +97,7 @@ void UartDeviceInit(UART_HandleTypeDef *huart)
 }
 
 /**
- * @brief  ´®¿Ú·¢ËÍÊı¾İ½Ó¿Ú£¬Êµ¼ÊÊÇĞ´Èë·¢ËÍfifo£¬·¢ËÍÓÉdma´¦Àí
+ * @brief  ä¸²å£å‘é€æ•°æ®æ¥å£ï¼Œå®é™…æ˜¯å†™å…¥å‘é€fifoï¼Œå‘é€ç”±dmaå¤„ç†
  * @param
  * @retval
  */
@@ -115,7 +115,7 @@ uint16_t UartWrite(UART_HandleTypeDef *huart, const uint8_t* buf, uint16_t size)
 }
 
 /**
- * @brief  ´®¿Ú¶ÁÈ¡Êı¾İ½Ó¿Ú£¬Êµ¼ÊÊÇ´Ó½ÓÊÕfifo¶ÁÈ¡
+ * @brief  ä¸²å£è¯»å–æ•°æ®æ¥å£ï¼Œå®é™…æ˜¯ä»æ¥æ”¶fifoè¯»å–
  * @param
  * @retval
  */
@@ -133,7 +133,7 @@ uint16_t UartRead(UART_HandleTypeDef *huart, uint8_t* buf, uint16_t size)
 }
 
 /**
- * @brief  Ñ­»·´Ó´®¿Ú·¢ËÍfifo¶Á³öÊı¾İ£¬·ÅÖÃÓÚdma·¢ËÍ»º´æ£¬²¢Æô¶¯dma´«Êä
+ * @brief  å¾ªç¯ä»ä¸²å£å‘é€fifoè¯»å‡ºæ•°æ®ï¼Œæ”¾ç½®äºdmaå‘é€ç¼“å­˜ï¼Œå¹¶å¯åŠ¨dmaä¼ è¾“
  * @param
  * @retval
  */
@@ -152,7 +152,7 @@ void UartPollDmaTx(UART_HandleTypeDef *huart)
         printf("transmit size: %d\r\n", size);
     #endif
     if (size != 0) {
-        uartDeviceImpl->status = UART_BUSY;  /* DMA·¢ËÍ×´Ì¬ */
+        uartDeviceImpl->status = UART_BUSY;  /* DMAå‘é€çŠ¶æ€ */
         HAL_UART_Transmit_DMA(uartDeviceImpl->huart, uartDeviceImpl->dmatx_buf, size);
     }
 }
@@ -160,7 +160,7 @@ void UartPollDmaTx(UART_HandleTypeDef *huart)
 
 
 /**
- * @brief  »ñÈ¡DMA½ÓÊÕbufÊ£Óà¿Õ¼ä
+ * @brief  è·å–DMAæ¥æ”¶bufå‰©ä½™ç©ºé—´
  * @param
  * @retval
  */
@@ -172,14 +172,14 @@ uint16_t uart_get_dmarx_buf_remain_size(UartDevice *uartDevice)
 
 
 /**
- * @brief  ´®¿Údma½ÓÊÕÍê³ÉÖĞ¶Ï´¦Àí
+ * @brief  ä¸²å£dmaæ¥æ”¶å®Œæˆä¸­æ–­å¤„ç†
  * @param
  * @retval
  */
 void uart_dmarx_done_isr(UartDevice *uartDevice)
 {   
     UartDeviceImpl *uartDeviceImpl = &uartDevice->uartDeviceImpl;
-    uint16_t recv_size; /* ±¾´ÎÖĞ¶ÏĞÂ½ÓÊÕµÄ³¤¶È */
+    uint16_t recv_size; /* æœ¬æ¬¡ä¸­æ–­æ–°æ¥æ”¶çš„é•¿åº¦ */
     recv_size = uartDeviceImpl->dmarx_buf_size - uartDeviceImpl->last_dmarx_size;
     uint32_t size = fifo_write(&uartDeviceImpl->rx_fifo, (const uint8_t*)&(uartDeviceImpl->dmarx_buf[uartDeviceImpl->last_dmarx_size]), recv_size);
     #if LIBUART_PRINT_DEBUG_LOG
@@ -190,15 +190,15 @@ void uart_dmarx_done_isr(UartDevice *uartDevice)
 }
 
 /**
- * @brief  ´®¿Údma½ÓÊÕ»º´æ´óĞ¡Ò»°ëÊı¾İÖĞ¶Ï´¦Àí
+ * @brief  ä¸²å£dmaæ¥æ”¶ç¼“å­˜å¤§å°ä¸€åŠæ•°æ®ä¸­æ–­å¤„ç†
  * @param
  * @retval
  */
 void uart_dmarx_half_done_isr(UartDevice *uartDevice)
 {   
     UartDeviceImpl *uartDeviceImpl = &uartDevice->uartDeviceImpl;
-    uint16_t recv_total_size; //½ÓÊÕ×Ü³¤
-    uint16_t recv_size; /* ±¾´ÎÖĞ¶ÏĞÂ½ÓÊÕµÄ³¤¶È */
+    uint16_t recv_total_size; //æ¥æ”¶æ€»é•¿
+    uint16_t recv_size; /* æœ¬æ¬¡ä¸­æ–­æ–°æ¥æ”¶çš„é•¿åº¦ */
     recv_total_size = uartDeviceImpl->dmarx_buf_size - __HAL_DMA_GET_COUNTER(uartDeviceImpl->hdma_rx);
     recv_size = recv_total_size - uartDeviceImpl->last_dmarx_size;
     uint32_t size = fifo_write(&uartDeviceImpl->rx_fifo, (const uint8_t*)&(uartDeviceImpl->dmarx_buf[uartDeviceImpl->last_dmarx_size]), recv_size);
@@ -211,7 +211,7 @@ void uart_dmarx_half_done_isr(UartDevice *uartDevice)
 
 
 /**
- * @brief  ´®¿Ú¿ÕÏĞÖĞ¶Ï´¦Àí
+ * @brief  ä¸²å£ç©ºé—²ä¸­æ–­å¤„ç†
  * @param
  * @retval
  */
@@ -231,20 +231,29 @@ void uart_dmarx_idle_isr(UartDevice *uartDevice)
 }
 
 /**
- * @brief  ´®¿Údma·¢ËÍÍê³ÉÖĞ¶Ï´¦Àí
+ * @brief  ä¸²å£dmaå‘é€å®Œæˆä¸­æ–­å¤„ç†
  * @param
  * @retval
  */
 void uart_dmatx_done_isr(UartDevice *uartDevice)
 {   
     UartDeviceImpl *uartDeviceImpl = &uartDevice->uartDeviceImpl;
-    uartDeviceImpl->status = UART_IDLE; /* DMA·¢ËÍ¿ÕÏĞ */
+    uartDeviceImpl->status = UART_IDLE; /* DMAå‘é€ç©ºé—² */
 }
 
 
 
 /**
- * @brief ´®¿ÚDMA½ÓÊÕÒ»°ëµÄ»Øµ÷º¯Êı.
+ * @brief ä¸²å£DMAæ¥æ”¶å®Œæˆçš„å›è°ƒå‡½æ•°.
+ * @param None
+ * @retval None
+ */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    uart_dmarx_done_isr(GetUartDeviceByUartDef(huart));
+}
+/**
+ * @brief ä¸²å£DMAæ¥æ”¶ä¸€åŠçš„å›è°ƒå‡½æ•°.
  * @param None
  * @retval None
  */
@@ -253,7 +262,7 @@ void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *huart)
     uart_dmarx_half_done_isr(GetUartDeviceByUartDef(huart));
 }
 /**
- * @brief ´®¿ÚDMA·¢ËÍÍê³ÉµÄ»Øµ÷º¯Êı.
+ * @brief ä¸²å£DMAå‘é€å®Œæˆçš„å›è°ƒå‡½æ•°.
  * @param None
  * @retval None
  */
@@ -265,12 +274,11 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 void USER_UART_IRQHandler(UART_HandleTypeDef *huart)
 {
   uint32_t temp;
-  if (RESET != __HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE)) // ÅĞ¶ÏÊÇ·ñÊÇ¿ÕÏĞÖĞ¶Ï
+  if (RESET != __HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE)) // åˆ¤æ–­æ˜¯å¦æ˜¯ç©ºé—²ä¸­æ–­
   {
-    __HAL_UART_CLEAR_IDLEFLAG(huart); // Çå³ı¿ÕÏĞÖĞ¶Ï±êÖ¾£¨·ñÔò»áÒ»Ö±²»¶Ï½øÈëÖĞ¶Ï£©
-    temp = huart->Instance->ISR;       // Çå³ı×´Ì¬¼Ä´æÆ÷SR
-    temp = huart->Instance->RDR;       // ¶ÁÈ¡Êı¾İ¼Ä´æÆ÷
+    __HAL_UART_CLEAR_IDLEFLAG(huart); // æ¸…é™¤ç©ºé—²ä¸­æ–­æ ‡å¿—ï¼ˆå¦åˆ™ä¼šä¸€ç›´ä¸æ–­è¿›å…¥ä¸­æ–­ï¼‰
+    temp = huart->Instance->ISR;       // æ¸…é™¤çŠ¶æ€å¯„å­˜å™¨SR
+    temp = huart->Instance->RDR;       // è¯»å–æ•°æ®å¯„å­˜å™¨
     uart_dmarx_idle_isr(GetUartDeviceByUartDef(huart));
   }
 }
-

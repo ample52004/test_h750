@@ -51,12 +51,16 @@ typedef struct
 	unsigned short rxlen;
 	unsigned short txlen;
 }SUASRT;
+
 /* USER CODE BEGIN ET */
 
 extern SUASRT usart2;
 extern SUASRT uart4;
 /* USER CODE END ET */
 
+extern unsigned char Rx_Buf[USART_BUF_LEN];
+//extern unsigned int reclen;
+extern unsigned char flag;
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 
@@ -66,6 +70,11 @@ extern uint8_t recv_flag_uart4;
 
 extern uint16_t PwmNum_Channel1;
 extern uint16_t PwmNum_Channel2;
+
+extern uint8_t TIM2CH1_CAPTURE_STA;
+extern uint16_t TIM2CH1_CAPTURE_VAL;
+extern uint8_t TIM2CH2_CAPTURE_STA;
+extern uint16_t TIM2CH2_CAPTURE_VAL;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -80,7 +89,7 @@ extern uint16_t PwmNum_Channel2;
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
-
+void MPU_Config(void);
 /* USER CODE BEGIN EFP */
 void delay_us(uint16_t nus);
 void delay_s(uint16_t s);

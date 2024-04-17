@@ -1,0 +1,9 @@
+/Users/ample/QTproject/Medicine/build/CMakeFiles/Medicine.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/edit_cache.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/rebuild_cache.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/list_install_components.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/install.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/install/local.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/install/strip.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/Medicine_autogen_timestamp_deps.dir
+/Users/ample/QTproject/Medicine/build/CMakeFiles/Medicine_autogen.dir

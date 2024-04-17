@@ -1,0 +1,20 @@
+[
+{
+  "directory": "/Users/ample/QTproject/Medicine/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -I/Users/ample/QTproject/Medicine/build/Medicine_autogen/include -isystem /opt/anaconda3/include/qt -isystem /opt/anaconda3/include/qt/QtWidgets -isystem /opt/anaconda3/include/qt/QtGui -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /opt/anaconda3/include/qt/QtCore -isystem /opt/anaconda3/./mkspecs/macx-clang -isystem /opt/anaconda3/include/qt/QtSql -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fPIC -o CMakeFiles/Medicine.dir/Medicine_autogen/mocs_compilation.cpp.o -c /Users/ample/QTproject/Medicine/build/Medicine_autogen/mocs_compilation.cpp",
+  "file": "/Users/ample/QTproject/Medicine/build/Medicine_autogen/mocs_compilation.cpp",
+  "output": "CMakeFiles/Medicine.dir/Medicine_autogen/mocs_compilation.cpp.o"
+},
+{
+  "directory": "/Users/ample/QTproject/Medicine/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -I/Users/ample/QTproject/Medicine/build/Medicine_autogen/include -isystem /opt/anaconda3/include/qt -isystem /opt/anaconda3/include/qt/QtWidgets -isystem /opt/anaconda3/include/qt/QtGui -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /opt/anaconda3/include/qt/QtCore -isystem /opt/anaconda3/./mkspecs/macx-clang -isystem /opt/anaconda3/include/qt/QtSql -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fPIC -o CMakeFiles/Medicine.dir/main.cpp.o -c /Users/ample/QTproject/Medicine/main.cpp",
+  "file": "/Users/ample/QTproject/Medicine/main.cpp",
+  "output": "CMakeFiles/Medicine.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/ample/QTproject/Medicine/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DQT_CORE_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_WIDGETS_LIB -I/Users/ample/QTproject/Medicine/build/Medicine_autogen/include -isystem /opt/anaconda3/include/qt -isystem /opt/anaconda3/include/qt/QtWidgets -isystem /opt/anaconda3/include/qt/QtGui -isystem /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/System/Library/Frameworks/OpenGL.framework/Headers -isystem /opt/anaconda3/include/qt/QtCore -isystem /opt/anaconda3/./mkspecs/macx-clang -isystem /opt/anaconda3/include/qt/QtSql -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -fPIC -o CMakeFiles/Medicine.dir/mainwindow.cpp.o -c /Users/ample/QTproject/Medicine/mainwindow.cpp",
+  "file": "/Users/ample/QTproject/Medicine/mainwindow.cpp",
+  "output": "CMakeFiles/Medicine.dir/mainwindow.cpp.o"
+}
+]

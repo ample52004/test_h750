@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d8f7528fe7e52a2a747d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Medicine",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Medicine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Medicine-Debug-546562e0aab8b414e5e7.json",
+					"name" : "Medicine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Medicine_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Medicine_autogen-Debug-38c1ad683ad8af6b1b84.json",
+					"name" : "Medicine_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Medicine_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Medicine_autogen_timestamp_deps-Debug-d39fe610508a0660e9fb.json",
+					"name" : "Medicine_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/ample/QTproject/Medicine/build",
+		"source" : "/Users/ample/QTproject/Medicine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
